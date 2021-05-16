@@ -14,6 +14,10 @@ function barGraph(id) {
             text: otu_labels.slice(0, 10).reverse(),
             orientation: "h"
         };
-        ]
+        var layout = {
+            title: Top 10 OTUs
+        }
+        var data = [Trace1];
+        Plotly.newPlot("bar", data, layout)
     }
 }
