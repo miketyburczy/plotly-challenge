@@ -14,10 +14,26 @@ function barGraph(id) {
             text: otu_labels.slice(0, 10).reverse(),
             orientation: "h"
         };
-        var layout = {
+        var barLayout = {
             title: Top 10 OTUs
         }
         var data = [Trace1];
-        Plotly.newPlot("bar", data, layout)
+        Plotly.newPlot("bar", data, barLayout)
+
+        var bubbleGraph = {
+            x: otu_ids,
+            y: otu_values,
+            text: otu_labels,
+            mode: markers,
+            marker: {
+                size: otu_values,
+                color: otu_ids, 
+                colorscale: Portland,
+            }
+        var bubbleLayout = {
+            title: Samples
+        }
+        }
     }
 }
+
