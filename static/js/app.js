@@ -1,6 +1,6 @@
 function metaInfo(idIn) {
-    d3.json("samples.json").then((dataJson) => {
-        var metadata = dataJson.metadata;
+    d3.json("samples.json").then((data) => {
+        var metadata = data.metadata;
         var dataId = metadata.filter(x => x.id == idIn);
         var ResultId = dataId[0];
         htmlSel = d3.select("#sample-metadata");
@@ -11,12 +11,13 @@ function metaInfo(idIn) {
 };
 
 function dropDown() {
-    d3.json("samples.json").then((dataJson) => {
-        var names = dataJson.names;
+    d3.json("samples.json").then((data) => {
+        var names = data.names;
         names.forEach((name) => {
             d3.select("#selDataset").append("option").text(name).property("value", name);
         });
         barGraph(dataJson.names[0]);
+        metaInfo(dataJson.names[0]);
     })
 }
 
@@ -28,8 +29,8 @@ function optionChanged(userIn) {
 }
 
 function barGraph(idInput) {
-    d3.json("samples.json").then((dataJson) => {
-        var sampleValues = dataJson.samples;
+    d3.json("samples.json").then((data) => {
+        var sampleValues = data.samples;
         var dataId = sampleValues.filter(x => x.id == idInput);
         var otu_labels = dataId[0].otu_labels;
         var otu_values = dataId[0].sample_values;
@@ -67,4 +68,5 @@ function barGraph(idInput) {
         Plotly.newPlot("bubble", [bubbleGraph], bubbleLayout);
     });
 };
+function dropDown();
 
