@@ -1,17 +1,24 @@
-function metaInfo(id) {
+function metaInfo
+
+function dropDown() {
     d3.json("samples.json").then((data) => {
-        var metaData = data.metaData;
-        //console.log(metaData)
-        var filterValue = metaData.filter(info => info.id.toString() === id)[0];
-        var table = d3.select("#sample-metadata");
-        table.html("");
-        Object.defineProperties(filterValue).forEach((key) => {
-            table.append("p").text(key[0] + ":" + key[1])
+        var names = data.names;
+        names.forEach((name) => {
+            d3.select("#selDataset").append("option").text(name).property("value", name);
         });
-    });
-};
+        barGraph(data.names[0]);
+    })
+}
+
+function visSelect(UserIn) {
+    barGraph(userIn);
+    var panelBody = d3.select(".panel-body");
+    panelBody.html("");
+    metaInfo(userIn)
+}
+
 function barGraph(id) {
-    d3.json("samples.json").then((data)) => {
+    d3.json("samples.json").then((data) => {
         var dataId = dataSamples.filter(x => x.id == id);
         var sample_values = data.samples;
         var otu_labels = dataId[0].otu_labels;
@@ -27,7 +34,7 @@ function barGraph(id) {
             orientation: "h"
         };
         var barLayout = {
-            title: Top 10 OTUs
+            title: "Top 10 OTUs"
         };
         var data = [Trace1];
         Plotly.newPlot("bar", data, barLayout);
@@ -36,17 +43,17 @@ function barGraph(id) {
             x: otu_ids,
             y: otu_values,
             text: otu_labels,
-            mode: markers,
+            mode: "markers",
             marker: {
                 size: otu_values,
                 color: otu_ids,
-                colorscale: Portland,
+                colorscale: Portland
             },
-        var bubbleLayout = {
-                title: Samples
-            },
-        Plotly.newPlot("bubble", [bubbleGraph], bubbleLayout)
-        };
-    };
+            var bubbleLayout = {
+                title: "Samples",
+            }
+        }
+            Plotly.newPlot("bubble", bubbleGraph, bubbleLayout);
+    })
 };
 
