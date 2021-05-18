@@ -68,5 +68,3 @@ function barGraph(idInput) {
         Plotly.newPlot("bubble", [bubbleGraph], bubbleLayout);
     });
 };
-function dropDown();
-
