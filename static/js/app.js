@@ -1,36 +1,36 @@
-function metaInfo(idInput) {
-    d3.json("samples.json").then((data) => {
-        var metaData = data.metaData;
-        var dataId = metadata.filter(x => x.id == idInput);
+function metaInfo(idIn) {
+    d3.json("samples.json").then((dataJson) => {
+        var metadata = dataJson.metadata;
+        var dataId = metadata.filter(x => x.id == idIn);
         var ResultId = dataId[0];
-        htmlEntry = d3.select("#sample-metadata");
+        htmlSel = d3.select("#sample-metadata");
         Object.entries(ResultId).forEach(([key, value]) => {
-            htmlEntry.append("p").text(`${key}:${value}`)
+            htmlSel.append("p").text(`${key}:${value}`)
         });
     });
 };
 
 function dropDown() {
-    d3.json("samples.json").then((data) => {
-        var names = data.names;
+    d3.json("samples.json").then((dataJson) => {
+        var names = dataJson.names;
         names.forEach((name) => {
             d3.select("#selDataset").append("option").text(name).property("value", name);
         });
-        barGraph(data.names[0]);
+        barGraph(dataJson.names[0]);
     })
 }
 
-function optionChanged(UserIn) {
+function optionChanged(userIn) {
     barGraph(userIn);
     var panelBody = d3.select(".panel-body");
     panelBody.html("");
     metaInfo(userIn)
 }
 
-function barGraph(idIn) {
-    d3.json("samples.json").then((data_js) => {
-        var dataId = dataSamples.filter(x => x.id == idIn);
-        var sample_values = data.samples;
+function barGraph(idInput) {
+    d3.json("samples.json").then((dataJson) => {
+        var sampleValues = dataJson.samples;
+        var dataId = sampleValues.filter(x => x.id == idInput);
         var otu_labels = dataId[0].otu_labels;
         var otu_values = dataId[0].sample_values;
         var otu_ids = dataId[0].otu_ids;
