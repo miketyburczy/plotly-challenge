@@ -1,4 +1,14 @@
-function metaInfo
+function metaInfo(idInput) {
+    d3.json("samples.json").then((data) => {
+        var metaData = data.metaData;
+        var dataId = metadata.filter(x => x.id == idInput);
+        var ResultId = dataId[0];
+        htmlEntry = d3.select("#sample-metadata");
+        Object.entries(ResultId).forEach(([key, value]) => {
+            htmlEntry.append("p").text(`${key}:${value}`)
+        });
+    });
+};
 
 function dropDown() {
     d3.json("samples.json").then((data) => {
@@ -10,16 +20,16 @@ function dropDown() {
     })
 }
 
-function visSelect(UserIn) {
+function optionChanged(UserIn) {
     barGraph(userIn);
     var panelBody = d3.select(".panel-body");
     panelBody.html("");
     metaInfo(userIn)
 }
 
-function barGraph(id) {
-    d3.json("samples.json").then((data) => {
-        var dataId = dataSamples.filter(x => x.id == id);
+function barGraph(idIn) {
+    d3.json("samples.json").then((data_js) => {
+        var dataId = dataSamples.filter(x => x.id == idIn);
         var sample_values = data.samples;
         var otu_labels = dataId[0].otu_labels;
         var otu_values = dataId[0].sample_values;
@@ -47,13 +57,14 @@ function barGraph(id) {
             marker: {
                 size: otu_values,
                 color: otu_ids,
-                colorscale: Portland
-            },
-            var bubbleLayout = {
-                title: "Samples",
+                colorscale: "Portland"
             }
         }
-            Plotly.newPlot("bubble", bubbleGraph, bubbleLayout);
-    })
+            var bubbleLayout = {
+                title: "Samples",
+                hovermode: "closest"
+            }
+        Plotly.newPlot("bubble", [bubbleGraph], bubbleLayout);
+    });
 };
 
