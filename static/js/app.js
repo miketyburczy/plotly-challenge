@@ -16,8 +16,8 @@ function dropDown() {
         names.forEach((name) => {
             d3.select("#selDataset").append("option").text(name).property("value", name);
         });
-        barGraph(dataJson.names[0]);
-        metaInfo(dataJson.names[0]);
+        barGraph(data.names[0]);
+        metaInfo(data.names[0]);
     })
 }
 
@@ -68,3 +68,5 @@ function barGraph(idInput) {
         Plotly.newPlot("bubble", [bubbleGraph], bubbleLayout);
     });
 };
+
+dropDown();
